@@ -30,6 +30,7 @@ do
       if [[ $INSERT_TEAM_RESULT == "INSERT 0 1" ]]
       then
       echo Inserted into teams table: $WINNER
+      sleep 1
       fi
     fi
   fi
@@ -46,6 +47,7 @@ do
       if [[ $INSERT_TEAM_RESULT == "INSERT 0 1" ]]
       then
       echo Inserted into teams table: $OPPONENT
+      sleep 1
       fi
     fi
   fi
@@ -68,7 +70,9 @@ do
     then
       # If game_id does not exist, insert new entry
       INSERT_GAME_IDS=$($PSQL "INSERT INTO games(year, round, winner_id, opponent_id, winner_goals, opponent_goals) VALUES($YEAR, '$ROUND', $WINNER_ID, $OPPONENT_ID, $WINNER_GOALS, $OPPONENT_GOALS)")
-      echo Inserted following into Games table: $YEAR, $ROUND, $WINNER_ID, $OPPONENT_ID, $WINNER_GOALS, $OPPONENT_GOALS. Total Count: $($PSQL "SELECT COUNT(game_id) FROM games")
+      echo -e "Inserted following into Games table: $YEAR, $ROUND, $WINNER_ID ($WINNER), $OPPONENT_ID ($OPPONENT), $WINNER_GOALS, $OPPONENT_GOALS." 
+      echo Total Count: $($PSQL "SELECT COUNT(game_id) FROM games")
+      sleep 1
     fi
   fi
 done
